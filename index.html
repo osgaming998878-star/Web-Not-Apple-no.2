@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iPhone 17 Pro — Minimal Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Fonts: Space Grotesk (Modern Tech English) + Prompt (Modern Geometric Thai) -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #030305;
+      --fg: #ffffff;
+      --muted: rgba(255,255,255,0.48);
+      --subtle: rgba(255,255,255,0.08);
+      --accent: #2997ff;
+      --accent-glow: rgba(41, 151, 255, 0.35);
+      --radius: 28px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { 
+      scroll-behavior: smooth; 
+      background: var(--bg);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Prompt', 'Space Grotesk', -apple-system, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Modern Typography Accents */
+    .font-tech {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* ─── AMBIENT INTERACTIVE SPOTLIGHT ─── */
+    #cursor-light {
+      position: fixed;
+      top: 0; left: 0;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(41, 151, 255, 0.08) 0%, rgba(138, 43, 226, 0.04) 40%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      transition: opacity 0.3s ease;
+      will-change: transform;
+    }
+
+    /* Subtle Futuristic Background Grid */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { 
+      background: rgba(255,255,255,0.18); 
+      border-radius: 10px; 
+    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ══════════════════════════════
+       NAV
+    ══════════════════════════════ */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      background: rgba(3, 3, 5, 0.65);
+      backdrop-filter: saturate(190%) blur(24px);
+      -webkit-backdrop-filter: saturate(190%) blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.3s;
+    }
+    nav a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.25s, text-shadow 0.25s;
+    }
+    nav a:hover { 
+      color: #fff; 
+      text-shadow: 0 0 12px rgba(255,255,255,0.4);
+    }
+    .nav-logo {
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .nav-logo:hover {
+      transform: scale(1.2) rotate(-8deg);
+    }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 130px 24px 80px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Breathing Ambient Orb */
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 750px; height: 750px;
+      background: radial-gradient(ellipse, rgba(41,151,255,0.14) 0%, rgba(138,43,226,0.06) 45%, transparent 70%);
+      border-radius: 50%;
+      top: 48%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: orbPulse 8s ease-in-out infinite alternate;
+    }
+
+    .hero-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.9s var(--ease) 0.2s forwards;
+      text-shadow: 0 0 20px rgba(41,151,255,0.5);
+    }
+
+    .hero-h1 {
+      font-size: clamp(52px, 9vw, 110px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.9s var(--ease) 0.35s forwards;
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.25) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(17px, 2.4vw, 22px);
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 46px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.9s var(--ease) 0.5s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.9s var(--ease) 0.65s forwards;
+    }
+
+    .btn-primary {
+      padding: 15px 32px;
+      background: linear-gradient(135deg, #2997ff 0%, #0071e3 100%);
+      color: #fff;
+      border: none;
+      border-radius: 980px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(41,151,255,0.25);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 36px rgba(41,151,255,0.45);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: rotate(45deg) translateY(-100%);
+      transition: transform 0.6s;
+    }
+    .btn-primary:hover::after {
+      transform: rotate(45deg) translateY(100%);
+    }
+
+    .btn-ghost {
+      padding: 15px 32px;
+      background: rgba(255,255,255,0.03);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 980px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* ─── 3D PARALLAX PHONE WRAPPER ─── */
+    .hero-phone-wrap {
+      margin-top: 54px;
+      opacity: 0;
+      transform: translateY(32px) scale(0.96);
+      animation: rise 1.1s var(--ease) 0.8s forwards;
+      perspective: 1200px;
+    }
+
+    .phone-container {
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .phone-svg {
+      width: min(230px, 48vw);
+      filter: drop-shadow(0 40px 90px rgba(41,151,255,0.22)) drop-shadow(0 4px 28px rgba(0,0,0,0.8));
+      animation: floatPhone 6s ease-in-out infinite;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: rise 1s var(--ease) 1.4s forwards;
+    }
+    .scroll-hint span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: lineBreath 2.2s ease-in-out infinite;
+    }
+
+    /* ══════════════════════════════
+       SECTION SHARED
+    ══════════════════════════════ */
+    section {
+      padding: 110px 24px;
+      max-width: 1080px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      text-shadow: 0 0 15px rgba(41,151,255,0.4);
+    }
+
+    .section-title {
+      font-size: clamp(34px, 5.2vw, 58px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 22px;
+    }
+
+    .section-body {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--subtle) 20%, var(--subtle) 80%, transparent);
+    }
+
+    /* ══════════════════════════════
+       FEATURES — MODERN GLASS CARDS
+    ══════════════════════════════ */
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media(max-width: 720px) {
+      .feature-row { grid-template-columns: 1fr; }
+    }
+
+    .feature-tile {
+      background: rgba(18, 18, 22, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 52px 46px;
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateY(44px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), border-color 0.4s, box-shadow 0.4s;
+    }
+    .feature-tile.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .feature-tile:nth-child(2) { transition-delay: 0.12s; }
+
+    .feature-tile:hover {
+      border-color: rgba(41, 151, 255, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7), 0 0 30px rgba(41,151,255,0.08);
+      transform: translateY(-4px);
+    }
+
+    .feature-tile--accent { 
+      background: linear-gradient(145deg, rgba(13, 31, 60, 0.8) 0%, rgba(12, 12, 18, 0.8) 100%);
+      border: 1px solid rgba(41, 151, 255, 0.2);
+    }
+    .feature-tile--white  { 
+      background: #f7f7f9; 
+      color: #1d1d1f; 
+      border: none;
+    }
+    .feature-tile--white .tile-body { color: rgba(0,0,0,0.6); }
+
+    .tile-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .feature-tile--white .tile-label { color: #0071e3; }
+
+    .tile-title {
+      font-size: clamp(26px, 3.6vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.18;
+      margin-bottom: 14px;
+    }
+
+    .tile-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .tile-icon {
+      font-size: 64px;
+      line-height: 1;
+      margin-bottom: 26px;
+      display: inline-block;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .feature-tile:hover .tile-icon { 
+      transform: scale(1.15) rotate(-6deg); 
+    }
+
+    /* ══════════════════════════════
+       BIG STATEMENT
+    ══════════════════════════════ */
+    .statement-section {
+      min-height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .statement-section::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(41,151,255,0.07) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .statement-text {
+      font-size: clamp(38px, 6.8vw, 84px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      max-width: 860px;
+    }
+    .statement-text em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+      background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ══════════════════════════════
+       SPECS TABLE
+    ══════════════════════════════ */
+    #specs-section {
+      padding: 110px 24px;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .spec-table tr {
+      border-bottom: 1px solid var(--subtle);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), background 0.3s;
+    }
+    .spec-table tr.in-view { opacity: 1; transform: translateY(0); }
+    .spec-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .spec-table td {
+      padding: 24px 12px;
+      font-size: 15px;
+    }
+    .spec-table td:first-child { 
+      color: var(--muted); 
+      width: 40%; 
+      font-weight: 400; 
+    }
+    .spec-table td:last-child { 
+      font-weight: 500; 
+      letter-spacing: 0.01em;
+    }
+
+    /* ══════════════════════════════
+       COLORS PICKER
+    ══════════════════════════════ */
+    .colors-section {
+      padding: 110px 24px;
+      text-align: center;
+    }
+    .color-swatches {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+    .swatch {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s;
+      position: relative;
+      border: 2px solid transparent;
+    }
+    .swatch::after {
+      content: attr(data-name);
+      position: absolute;
+      bottom: -28px;
+      left: 50%; transform: translateX(-50%);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .swatch:hover { 
+      transform: scale(1.18); 
+    }
+    .swatch:hover::after { 
+      opacity: 1; 
+      transform: translateX(-50%) translateY(2px);
+    }
+    .swatch.active { 
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.9), 0 8px 24px rgba(0,0,0,0.5); 
+      transform: scale(1.15); 
+    }
+    .swatch.active::after {
+      opacity: 1;
+      color: #fff;
+    }
+
+    .color-preview-phone {
+      width: min(190px, 40vw);
+      margin: 60px auto 0;
+      display: block;
+      transition: filter 0.6s var(--ease);
+      animation: floatPhone 6s ease-in-out infinite;
+    }
+
+    /* ══════════════════════════════
+       PRICE SECTION
+    ══════════════════════════════ */
+    .price-section {
+      padding: 120px 24px;
+      text-align: center;
+    }
+    .price-big {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(62px, 9.5vw, 112px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 28px 0 16px;
+    }
+    .price-note {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 50px;
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--subtle);
+      padding: 50px 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.32);
+      font-size: 13px;
+      line-height: 2;
+      position: relative;
+      z-index: 1;
+    }
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: #fff; }
+
+    /* ══════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════ */
+    @keyframes rise {
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes floatPhone {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-16px); }
+    }
+    @keyframes lineBreath {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(0.5); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes orbPulse {
+      0%   { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+    }
+
+    /* ── text shimmer util ── */
+    .shimmer {
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.7) 0%,
+        rgba(255,255,255,1) 40%,
+        rgba(255,255,255,0.7) 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3.5s linear infinite;
+    }
+
+    /* horizontal marquee strip */
+    .strip {
+      overflow: hidden;
+      border-top: 1px solid var(--subtle);
+      border-bottom: 1px solid var(--subtle);
+      padding: 16px 0;
+      position: relative;
+      z-index: 1;
+      background: rgba(3, 3, 5, 0.4);
+      backdrop-filter: blur(10px);
+    }
+    .strip-track {
+      display: flex;
+      gap: 56px;
+      width: max-content;
+      animation: marquee 26s linear infinite;
+    }
+    .strip-item {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .strip-item:hover { color: #fff; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* progress line on scroll */
+    #progress {
+      position: fixed;
+      top: 56px; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2997ff, #00f5ff);
+      box-shadow: 0 0 10px rgba(41,151,255,0.7);
+      width: 0%;
+      z-index: 101;
+      transition: width 0.1s linear;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light following Cursor -->
+  <div id="cursor-light"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Scroll Progress -->
+  <div id="progress"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo font-tech">🍎</a>
+    <a href="#features" class="font-tech">Features</a>
+    <a href="#specs-section" class="font-tech">Specs</a>
+    <a href="#colors" class="font-tech">Colors</a>
+    <a href="#price" class="font-tech">Buy</a>
+  </nav>
+
+  <!-- ═══════ HERO ═══════ -->
+  <div id="hero">
+    <p class="hero-label">iPhone 17 Pro</p>
+    <h1 class="hero-h1">กล้องที่ดีที่สุด<br/><em>ที่เคยมีมา</em></h1>
+    <p class="hero-sub">Titanium. A19 Bionic. กล้องระบบ Pro ที่พัฒนามาอีกระดับ</p>
+    <div class="hero-ctas">
+      <a href="#price" class="btn-primary">ซื้อเลย</a>
+      <a href="#features" class="btn-ghost">เรียนรู้เพิ่มเติม ↓</a>
+    </div>
+
+    <div class="hero-phone-wrap" id="phoneWrapper">
+      <div class="phone-container" id="phoneTilt">
+        <!-- Phone SVG -->
+        <svg class="phone-svg" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2a2a2e"/>
+              <stop offset="60%" stop-color="#1c1c1e"/>
+              <stop offset="100%" stop-color="#141416"/>
+            </linearGradient>
+            <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#48484a"/>
+              <stop offset="50%" stop-color="#737376"/>
+              <stop offset="100%" stop-color="#3a3a3c"/>
+            </linearGradient>
+            <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0a0a14"/>
+              <stop offset="100%" stop-color="#050508"/>
+            </linearGradient>
+            <linearGradient id="glow" x1="0.5" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stop-color="#2997ff" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#2997ff" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="softBlur"><feGaussianBlur stdDeviation="3"/></filter>
+            <filter id="innerGlow">
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- body shadow -->
+          <ellipse cx="100" cy="390" rx="60" ry="8" fill="rgba(0,0,0,0.4)" filter="url(#softBlur)"/>
+
+          <!-- body -->
+          <rect x="8" y="16" width="184" height="368" rx="38" fill="url(#body)"/>
+          <!-- edge highlight -->
+          <rect x="8" y="16" width="184" height="368" rx="38" fill="none" stroke="url(#edge)" stroke-width="1.5"/>
+
+          <!-- screen area -->
+          <rect x="16" y="24" width="168" height="352" rx="31" fill="url(#scr)"/>
+
+          <!-- screen glow top -->
+          <rect x="16" y="24" width="168" height="130" rx="31" fill="url(#glow)"/>
+
+          <!-- Dynamic Island -->
+          <rect x="68" y="36" width="64" height="20" rx="10" fill="#000"/>
+          <!-- island camera dot -->
+          <circle cx="118" cy="46" r="5" fill="#111"/>
+          <circle cx="118" cy="46" r="2.5" fill="#1a1a1a"/>
+          <circle cx="116" cy="44" r="1.2" fill="#2997ff" opacity="0.8"/>
+
+          <!-- home screen time -->
+          <text x="100" y="100" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+                font-size="34" font-weight="700" font-family="'Space Grotesk', sans-serif" letter-spacing="-1">9:41</text>
+          <text x="100" y="120" text-anchor="middle" fill="rgba(255,255,255,0.5)"
+                font-size="9" font-family="'Prompt', sans-serif" letter-spacing="0.5">วันอังคาร 27 ตุลาคม</text>
+
+          <!-- app icons row 1 -->
+          <rect x="32" y="145" width="30" height="30" rx="7" fill="#1c4ed8"/>
+          <rect x="72" y="145" width="30" height="30" rx="7" fill="#15803d"/>
+          <rect x="112" y="145" width="30" height="30" rx="7" fill="#991b1b"/>
+          <rect x="152" y="145" width="14" height="30" rx="4" fill="#374151"/>
+
+          <!-- app icons row 2 -->
+          <rect x="32" y="185" width="30" height="30" rx="7" fill="#0e7490"/>
+          <rect x="72" y="185" width="30" height="30" rx="7" fill="#713f12"/>
+          <rect x="112" y="185" width="30" height="30" rx="7" fill="#4c1d95"/>
+          <rect x="152" y="185" width="14" height="30" rx="4" fill="#1e293b"/>
+
+          <!-- wallpaper border overlay -->
+          <rect x="16" y="24" width="168" height="352" rx="31"
+                fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+          <!-- bottom dock bg -->
+          <rect x="26" y="305" width="148" height="52" rx="18"
+                fill="rgba(255,255,255,0.08)" />
+          <!-- dock icons -->
+          <rect x="36" y="315" width="28" height="28" rx="7" fill="#2563eb"/>
+          <rect x="74" y="315" width="28" height="28" rx="7" fill="#16a34a"/>
+          <rect x="112" y="315" width="28" height="28" rx="7" fill="#dc2626"/>
+          <rect x="150" y="315" width="14" height="28" rx="5" fill="#334155"/>
+
+          <!-- home indicator -->
+          <rect x="75" y="368" width="50" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+
+          <!-- CAMERA ISLAND (top-left) -->
+          <rect x="10" y="22" width="72" height="66" rx="20" fill="#111" stroke="#2a2a2e" stroke-width="1"/>
+
+          <!-- main lens -->
+          <circle cx="37" cy="42" r="15" fill="#0a0a0a" stroke="#222" stroke-width="1"/>
+          <circle cx="37" cy="42" r="11" fill="#111"/>
+          <circle cx="37" cy="42" r="7" fill="#0d0d0d"/>
+          <circle cx="37" cy="42" r="3.5" fill="#0a0a0a"/>
+          <circle cx="34" cy="39" r="2" fill="#2997ff" opacity="0.4" filter="url(#innerGlow)"/>
+
+          <!-- tele lens -->
+          <circle cx="58" cy="42" r="10" fill="#0a0a0a" stroke="#222" stroke-width="1"/>
+          <circle cx="58" cy="42" r="7" fill="#111"/>
+          <circle cx="58" cy="42" r="4" fill="#0d0d0d"/>
+          <circle cx="56" cy="40" r="1.5" fill="#2997ff" opacity="0.4" filter="url(#innerGlow)"/>
+
+          <!-- ultra-wide lens -->
+          <circle cx="47" cy="66" r="12" fill="#0a0a0a" stroke="#222" stroke-width="1"/>
+          <circle cx="47" cy="66" r="8.5" fill="#111"/>
+          <circle cx="47" cy="66" r="5" fill="#0d0d0d"/>
+          <circle cx="45" cy="64" r="1.8" fill="#2997ff" opacity="0.4" filter="url(#innerGlow)"/>
+
+          <!-- lidar dot -->
+          <circle cx="68" cy="66" r="4" fill="#0a0a0a" stroke="#222" stroke-width="1"/>
+          <circle cx="68" cy="66" r="2" fill="#111"/>
+
+          <!-- flash -->
+          <circle cx="22" cy="72" r="5" fill="#1a1a00" stroke="#2a2a0a" stroke-width="1"/>
+          <circle cx="22" cy="72" r="2.5" fill="#222200"/>
+
+          <!-- side buttons -->
+          <rect x="6" y="108" width="3" height="36" rx="1.5" fill="#3a3a3c"/>
+          <rect x="6" y="154" width="3" height="64" rx="1.5" fill="#3a3a3c"/>
+          <rect x="191" y="120" width="3" height="56" rx="1.5" fill="#3a3a3c"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      <span>scroll</span>
+    </div>
+  </div>
+
+  <!-- Strip -->
+  <div class="strip">
+    <div class="strip-track">
+      <span class="strip-item">Titanium Design</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">A19 Bionic Chip</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">Pro Camera System</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">All-Day Battery</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">Dynamic Island</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">USB 4 Port</span>
+      <span class="strip-item">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="strip-item">Titanium Design</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">A19 Bionic Chip</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">Pro Camera System</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">All-Day Battery</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">Dynamic Island</span>
+      <span class="strip-item">·</span>
+      <span class="strip-item">USB 4 Port</span>
+      <span class="strip-item">·</span>
+    </div>
+  </div>
+
+  <!-- ═══════ STATEMENT 1 ═══════ -->
+  <div class="statement-section">
+    <h2 class="statement-text reveal-text">
+      โทรศัพท์ที่ทำให้<br/>ทุกช่วงเวลา<br/><em>ดูเป็นมืออาชีพ</em>
+    </h2>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════ FEATURES GRID ═══════ -->
+  <div id="features" style="padding:110px 24px;max-width:1080px;margin:0 auto;">
+
+    <div style="margin-bottom:68px;" class="reveal-block">
+      <p class="section-eyebrow">กล้อง</p>
+      <h2 class="section-title">Pro Camera<br/><em style="color:var(--muted);font-weight:300;font-style:italic;">ระดับ Cinema</em></h2>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="feature-row">
+      <div class="feature-tile feature-tile--accent">
+        <span class="tile-icon">📸</span>
+        <p class="tile-label font-tech">Main Camera</p>
+        <h3 class="tile-title">108MP<br/>Fusion Camera</h3>
+        <p class="tile-body">ความละเอียดสูงสุดที่เคยมีใน iPhone พร้อมระบบ optical zoom 5× และ Night mode ที่ฉลาดกว่าเดิม</p>
+      </div>
+      <div class="feature-tile">
+        <span class="tile-icon">🎬</span>
+        <p class="tile-label font-tech">Video</p>
+        <h3 class="tile-title">Log Video<br/>4K 120fps</h3>
+        <p class="tile-body">บันทึกวิดีโอแบบ ProRes Log สำหรับ post-production ระดับมืออาชีพได้โดยตรงจากมือถือ</p>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="feature-row">
+      <div class="feature-tile feature-tile--white">
+        <span class="tile-icon">⚡</span>
+        <p class="tile-label font-tech" style="color:#0071e3;">Performance</p>
+        <h3 class="tile-title" style="color:#1d1d1f;">A19 Bionic<br/>ชิปที่เร็วที่สุด</h3>
+        <p class="tile-body">เร็วขึ้น 30% เหมาะกับงาน AI, gaming และ multitasking หนักๆ โดยไม่ร้อน</p>
+      </div>
+      <div class="feature-tile">
+        <span class="tile-icon">🔋</span>
+        <p class="tile-label font-tech">Battery</p>
+        <h3 class="tile-title">ทั้งวัน<br/>ทั้งคืน</h3>
+        <p class="tile-body">แบตเตอรี่ใหม่ที่ใหญ่ขึ้น 15% พร้อมชาร์จไร้สาย MagSafe 30W อยู่เต็มในไม่กี่นาที</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════ STATEMENT 2 ═══════ -->
+  <div class="statement-section">
+    <h2 class="statement-text reveal-text">
+      Titanium.<br/><em>แข็งแกร่ง แต่เบา</em><br/>อย่างที่ไม่เคยสัมผัส
+    </h2>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════ SPECS ═══════ -->
+  <div id="specs-section">
+    <div class="reveal-block" style="margin-bottom:48px;">
+      <p class="section-eyebrow">Specifications</p>
+      <h2 class="section-title">ข้อมูลทางเทคนิค</h2>
+    </div>
+    <table class="spec-table">
+      <tbody>
+        <tr>
+          <td>จอภาพ</td>
+          <td>6.3" Super Retina XDR · 2796×1290 · 460ppi · 120Hz ProMotion</td>
+        </tr>
+        <tr>
+          <td>ชิปเซ็ต</td>
+          <td>A19 Bionic · 3nm · Neural Engine 18-core</td>
+        </tr>
+        <tr>
+          <td>กล้องหลัก</td>
+          <td>108MP f/1.78 · OIS · 100% Focus Pixels</td>
+        </tr>
+        <tr>
+          <td>Telephoto</td>
+          <td>48MP f/2.8 · Tetraprism · 5× optical</td>
+        </tr>
+        <tr>
+          <td>Ultra Wide</td>
+          <td>12MP f/2.2 · Macro Photography</td>
+        </tr>
+        <tr>
+          <td>แบตเตอรี่</td>
+          <td>4,685 mAh · 29hr video · MagSafe 30W</td>
+        </tr>
+        <tr>
+          <td>วัสดุ</td>
+          <td>Grade 5 Titanium · Ceramic Shield หน้า-หลัง</td>
+        </tr>
+        <tr>
+          <td>ระบบปฏิบัติการ</td>
+          <td>iOS 19 พร้อม Apple Intelligence</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════ COLORS ═══════ -->
+  <div id="colors" class="colors-section">
+    <div class="reveal-block">
+      <p class="section-eyebrow">Finish</p>
+      <h2 class="section-title">เลือกสีที่ใช่</h2>
+      <p class="section-body" style="margin:0 auto;text-align:center;">ตัวเรือน Titanium 4 เฉดสี<br/>ที่เข้ากับทุก mood</p>
+    </div>
+
+    <div class="color-swatches">
+      <div class="swatch active" data-name="Black Titanium"
+           style="background:linear-gradient(135deg,#2c2c2e,#1c1c1e);"
+           data-glow="rgba(44,44,46,0.6)"></div>
+      <div class="swatch" data-name="White Titanium"
+           style="background:linear-gradient(135deg,#f5f5f5,#e5e5ea);"
+           data-glow="rgba(245,245,245,0.3)"></div>
+      <div class="swatch" data-name="Natural Titanium"
+           style="background:linear-gradient(135deg,#a8a39d,#8e8985);"
+           data-glow="rgba(168,163,157,0.4)"></div>
+      <div class="swatch" data-name="Desert Titanium"
+           style="background:linear-gradient(135deg,#c9a96e,#b8935a);"
+           data-glow="rgba(201,169,110,0.4)"></div>
+    </div>
+
+    <!-- Phone that changes glow color -->
+    <svg id="colorPhone" class="color-preview-phone" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="cb" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#2a2a2e" id="c-stop1"/>
+          <stop offset="100%" stop-color="#141416" id="c-stop2"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="100" cy="390" rx="65" ry="10" fill="rgba(0,0,0,0.4)" filter="url(#softBlur)"/>
+      <rect x="8" y="16" width="184" height="368" rx="38" fill="url(#cb)" id="phoneBody"/>
+      <rect x="8" y="16" width="184" height="368" rx="38" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <rect x="16" y="24" width="168" height="352" rx="31" fill="#060608"/>
+      <rect x="68" y="36" width="64" height="20" rx="10" fill="#000"/>
+      <text x="100" y="200" text-anchor="middle" fill="rgba(255,255,255,0.85)"
+            font-size="20" font-weight="600" font-family="'Space Grotesk', sans-serif">iPhone 17 Pro</text>
+      <rect x="75" y="368" width="50" height="4" rx="2" fill="rgba(255,255,255,0.25)"/>
+      <rect x="10" y="22" width="72" height="66" rx="20" fill="#111"/>
+      <circle cx="37" cy="42" r="14" fill="#0a0a0a" stroke="#2a2a2e" stroke-width="1"/>
+      <circle cx="58" cy="42" r="9" fill="#0a0a0a" stroke="#2a2a2e" stroke-width="1"/>
+      <circle cx="47" cy="64" r="11" fill="#0a0a0a" stroke="#2a2a2e" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════ PRICE ═══════ -->
+  <div id="price" class="price-section">
+    <div class="reveal-block">
+      <p class="section-eyebrow font-tech">ราคาเริ่มต้น</p>
+      <h2 class="price-big shimmer font-tech">฿39,900</h2>
+      <p class="price-note">หรือผ่อน ฿1,663/เดือน · 0% นาน 24 เดือน</p>
+    </div>
+
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal-block">
+      <a href="#" class="btn-primary" style="font-size:16px;padding:16px 40px;">ซื้อ iPhone 17 Pro</a>
+      <a href="#" class="btn-ghost" style="font-size:16px;padding:16px 40px;">เปรียบเทียบรุ่น</a>
+    </div>
+
+    <p style="margin-top:40px;font-size:12px;color:rgba(255,255,255,0.22);max-width:480px;margin-left:auto;margin-right:auto;line-height:1.9;text-align:center;">
+      * เว็บนี้สร้างขึ้นเพื่อความสนุก ไม่ใช่เว็บ Apple จริง
+      ราคาและสเปคเป็นข้อมูลสมมุติ
+    </p>
+  </div>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <p>Copyright © 2026 not Apple Inc. สงวนลิขสิทธิ์</p>
+    <p style="margin-top:6px;">
+      <a href="#">นโยบายความเป็นส่วนตัว</a> · <a href="#">ข้อกำหนดการใช้งาน</a> · <a href="#">คุกกี้</a>
+    </p>
+    <p style="margin-top:12px;font-size:10px;color:rgba(255,255,255,0.18);">
+      iPhone เป็นเครื่องหมายการค้าของ Apple Inc. เว็บนี้ไม่มีความเกี่ยวข้องกับ Apple Inc. แต่อย่างใด
+    </p>
+  </footer>
+
+  <script>
+  // ─── AMBIENT MOUSE LIGHT ───
+  const light = document.getElementById('cursor-light');
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let curX = mouseX;
+  let curY = mouseY;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function renderLight() {
+    curX += (mouseX - curX) * 0.08;
+    curY += (mouseY - curY) * 0.08;
+    light.style.transform = `translate(${curX - 350}px, ${curY - 350}px)`;
+    requestAnimationFrame(renderLight);
+  }
+  requestAnimationFrame(renderLight);
+
+  // ─── 3D PHONE TILT ON HERO ───
+  const phoneWrapper = document.getElementById('phoneWrapper');
+  const phoneTilt = document.getElementById('phoneTilt');
+
+  if (phoneWrapper && phoneTilt) {
+    window.addEventListener('mousemove', (e) => {
+      const rect = phoneWrapper.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = (e.clientX - centerX) / (window.innerWidth / 2);
+      const deltaY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+      const rotateY = deltaX * 18;
+      const rotateX = -deltaY * 18;
+      phoneTilt.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      phoneTilt.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    });
+  }
+
+  // ─── SCROLL PROGRESS BAR ───
+  const progress = document.getElementById('progress');
+  function updateProgress() {
+    const s = window.scrollY;
+    const max = document.body.scrollHeight - window.innerHeight;
+    if (max > 0) {
+      progress.style.width = (s / max * 100) + '%';
+    }
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ─── INTERSECTION OBSERVER (Scroll Reveal) ───
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  // Observe Feature tiles
+  document.querySelectorAll('.feature-tile').forEach(el => io.observe(el));
+
+  // Spec table rows stagger
+  document.querySelectorAll('.spec-table tr').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.06}s`;
+    io.observe(el);
+  });
+
+  // Generic reveal blocks
+  document.querySelectorAll('.reveal-block').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+    
+    const blockIo = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        blockIo.disconnect();
+      }
+    }, { threshold: 0.2 });
+    blockIo.observe(el);
+  });
+
+  // Statement text — word-by-word reveal
+  document.querySelectorAll('.reveal-text').forEach(el => {
+    const html = el.innerHTML;
+    const parts = html.split(/(<br\/>|<br>)/g);
+    let wordIndex = 0;
+    el.innerHTML = parts.map(part => {
+      if (part === '<br/>' || part === '<br>') return '<br/>';
+      return part.split(' ').map(word => {
+        if (!word.trim()) return '';
+        const w = `<span class="word" style="display:inline-block;opacity:0;transform:translateY(24px);transition:opacity 0.6s ${wordIndex * 0.08}s cubic-bezier(0.16,1,0.3,1),transform 0.6s ${wordIndex * 0.08}s cubic-bezier(0.16,1,0.3,1);">${word}</span>`;
+        wordIndex++;
+        return w;
+      }).join(' ');
+    }).join('');
+
+    const textIo = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        el.querySelectorAll('.word').forEach(w => {
+          w.style.opacity = '1';
+          w.style.transform = 'none';
+        });
+        textIo.disconnect();
+      }
+    }, { threshold: 0.3 });
+    textIo.observe(el);
+  });
+
+  // ─── COLOR PICKER ───
+  const swatches = document.querySelectorAll('.swatch');
+  const stop1 = document.getElementById('c-stop1');
+  const stop2 = document.getElementById('c-stop2');
+  const colorPhone = document.getElementById('colorPhone');
+
+  const colorMap = {
+    'Black Titanium':   { c1: '#2c2c2e', c2: '#1c1c1e', shadow: 'rgba(44,44,46,0.6)' },
+    'White Titanium':   { c1: '#f2f2f7', c2: '#d1d1d6', shadow: 'rgba(230,230,235,0.45)' },
+    'Natural Titanium': { c1: '#a8a39d', c2: '#888580', shadow: 'rgba(168,163,157,0.5)' },
+    'Desert Titanium':  { c1: '#c9a96e', c2: '#b08040', shadow: 'rgba(180,130,60,0.55)' },
+  };
+
+  swatches.forEach(sw => {
+    sw.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('active'));
+      sw.classList.add('active');
+
+      const name = sw.dataset.name;
+      const cfg = colorMap[name];
+      if (!cfg) return;
+
+      stop1.setAttribute('stop-color', cfg.c1);
+      stop2.setAttribute('stop-color', cfg.c2);
+      colorPhone.style.filter =
+        `drop-shadow(0 20px 60px ${cfg.shadow}) drop-shadow(0 2px 14px rgba(0,0,0,0.7))`;
+    });
+  });
+
+  // ─── NAV ACTIVE LINK ON SCROLL ───
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const activeIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + entry.target.id
+            ? '#fff' : '';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => activeIo.observe(s));
+  </script>
+</body>
+</html>
